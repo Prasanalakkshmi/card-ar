@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Olivia Fashion — AR Visiting Card</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body>
+  <div id="intro" class="intro">
+    <div class="brand">OLIVIA <span>FASHION</span></div>
+    <p>Point your camera at the printed visiting card.</p>
+    <p class="small">Allow camera access when prompted. Best in a well-lit room.</p>
+    <button id="start">Start AR experience</button>
+    <p id="status" role="status">Ready when you are.</p>
+  </div>
+
+  <a-scene
+    mindar-image="imageTargetSrc: ./assets/card-target.mind; autoStart: false; uiScanning: true; filterMinCF: 0.0001; filterBeta: 0.001"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+    embedded
+    loading-screen="enabled: false">
+    <a-assets>
+      <a-mixin id="glow" material="color: #ffe4f2; emissive: #e7a8cc; emissiveIntensity: 0.6; transparent: true; opacity: 0.96"></a-mixin>
+    </a-assets>
+
+    <!-- Target index 0 is the full printed card image. The overlay is positioned just above it. -->
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-entity position="0 0 0.04">
+        <a-plane position="0 0.18 0" width="1.05" height="0.18" material="color: #5b1838; opacity: 0.94; transparent: true"></a-plane>
+        <a-text value="OLIVIA FASHION" position="0 0.2 0.01" align="center" color="#fff7fb" width="1.8"
+          animation="property: position; from: 0 0.14 0.01; to: 0 0.24 0.01; dir: alternate; dur: 1300; loop: true; easing: easeInOutSine"></a-text>
+        <a-text value="Style that tells your story" position="0 0.06 0.02" align="center" color="#7d315a" width="1.35"></a-text>
+
+        <a-ring position="-0.36 -0.02 0.02" radius-inner="0.035" radius-outer="0.045"
+          material="color: #f7c8e2; emissive: #e7a8cc; emissiveIntensity: 0.8"
+          animation="property: rotation; to: 0 0 360; dur: 5000; loop: true"></a-ring>
+        <a-sphere position="-0.36 -0.02 0.025" radius="0.018" material="color: #fff3a8; emissive: #ffe9a0; emissiveIntensity: 0.8"
+          animation="property: scale; from: 0.7 0.7 0.7; to: 1.25 1.25 1.25; dir: alternate; dur: 900; loop: true"></a-sphere>
+
+        <a-plane position="0 -0.17 0.01" width="0.84" height="0.16" material="color: #fff7fb; opacity: 0.92; transparent: true"></a-plane>
+        <a-text value="Tap below to connect" position="0 -0.13 0.025" align="center" color="#5b1838" width="1.35"></a-text>
+        <a-plane id="contact-panel" position="0 -0.21 0.025" width="0.52" height="0.09" material="color: #8b3f69; opacity: 0.98"></a-plane>
+        <a-text value="CONTACT  ↗" position="0 -0.21 0.04" align="center" color="#ffffff" width="0.95"></a-text>
+      </a-entity>
+    </a-entity>
+  </a-scene>
+
+  <div id="contact" class="contact hidden">
+    <div class="contact-card">
+      <button id="close" class="close" aria-label="Close">×</button>
+      <div class="brand">OLIVIA <span>FASHION</span></div>
+      <p>Choose a contact action</p>
+      <a href="tel:+1234567890">Call</a>
+      <a href="mailto:hello@reallygreatsite.com">Email</a>
+      <a href="https://www.reallygreatsite.com" target="_blank" rel="noreferrer">Website</a>
+      <small>Replace the sample contact details in index.html with your own before publishing.</small>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
